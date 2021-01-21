@@ -24,7 +24,12 @@
 
 <script>
 export default {
-  props: ['logList'],
+  props: {
+    logList: {
+      type: Array,
+      default: () => [],
+    },
+  },
 }
 </script>
 

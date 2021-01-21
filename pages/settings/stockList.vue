@@ -1,19 +1,16 @@
 <template>
   <section>
-    <header>
-      <button>뒤로가기</button>
-      <h1>매매기록</h1>
-    </header>
-    <section class="list">
-      <stock-log-list :logList="stockList"></stock-log-list>
-    </section>
-    <button
+    <the-header page-title="매매기록"></the-header>
+    <stock-log-list :log-list="stockList"></stock-log-list>
+
+    <base-button
       v-show="!writeNewList"
       class="add-list"
+      mode="add"
       @click="writeNewList = true"
     >
       + 매매 내역 추가하기
-    </button>
+    </base-button>
     <write-new-stock-list
       v-show="writeNewList"
       :message="stockList"
@@ -35,6 +32,13 @@ export default {
           date: '20.12.05',
           price: '65,500',
           count: '19',
+        },
+        {
+          id: '2',
+          buy: '매수',
+          date: '20.12.25',
+          price: '64,500',
+          count: '10',
         },
       ],
     }

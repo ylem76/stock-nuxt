@@ -4,13 +4,30 @@
     <td>{{ date }}</td>
     <td>{{ price }}</td>
     <td>{{ count }}</td>
-    <td><button>수정</button></td>
+    <td><base-button>수정</base-button></td>
   </tr>
 </template>
 
 <script>
 export default {
-  props: ['buy', 'date', 'price', 'count'],
+  props: {
+    buy: {
+      type: String,
+      default: '',
+    },
+    date: {
+      type: String,
+      default: '',
+    },
+    price: {
+      type: String,
+      default: '',
+    },
+    count: {
+      type: String,
+      default: '',
+    },
+  },
 }
 </script>
 

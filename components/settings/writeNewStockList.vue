@@ -31,12 +31,17 @@
     </table>
     <button @click="completeClose()">저장하기</button>
     <button @click="close()">취소하기</button>
-    <span>{{ message }}</span>
+    <!-- <span>{{ message }}</span> -->
   </section>
 </template>
 <script>
 export default {
-  props: ['message'],
+  // props: {
+  //   message: {
+  //     type: String,
+  //     default: '',
+  //   },
+  // },
   data() {
     return {
       stock: {

@@ -31,33 +31,36 @@
     </table>
     <button @click="completeClose()">저장하기</button>
     <button @click="close()">취소하기</button>
-    <!-- <span>{{ message }}</span> -->
   </section>
 </template>
 <script>
 export default {
-  // props: {
-  //   message: {
-  //     type: String,
-  //     default: '',
-  //   },
-  // },
+  inject: ['addNewItem'],
   data() {
     return {
       stock: {
-        id: '',
+        id: null,
         buy: '',
-        date: '',
-        price: '',
-        count: '',
+        date: null,
+        price: null,
+        count: null,
       },
     }
   },
   methods: {
     completeClose() {
+      this.stock.id = new Date().toISOString()
+      this.addNewItem(this.stock)
       this.$emit('stock')
-      alert('저장되었습니다.')
-      close()
+      this.stock = {
+        // 폼 입력 내용 지우는 방법 찾아보기
+        id: null,
+        buy: '',
+        date: null,
+        price: null,
+        count: null,
+      }
+      this.close()
     },
 
     close() {

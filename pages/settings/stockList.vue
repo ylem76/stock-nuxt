@@ -1,6 +1,6 @@
 <template>
   <section>
-    <the-header page-title="매매기록"></the-header>
+    <the-header page-title="매매기록" page-link="/settings"></the-header>
     <stock-log-list :log-list="stockList"></stock-log-list>
 
     <base-button
@@ -45,7 +45,10 @@ export default {
   },
   provide() {
     return {
+      stockList: this.stockList,
       addNewItem: this.addNewItem,
+      deleteItem: this.removeItem,
+      modifyItem: this.modifyItem,
     }
   },
   methods: {
@@ -58,6 +61,12 @@ export default {
         count: enteredObj.count,
       }
       this.stockList.unshift(newItem)
+    },
+    removeItem(stockId) {
+      const removeStockIndex = this.stockList.findIndex(
+        (res) => res.id === stockId
+      )
+      this.stockList.splice(removeStockIndex, 1)
     },
   },
 }

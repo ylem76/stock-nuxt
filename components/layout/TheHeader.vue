@@ -1,6 +1,6 @@
 <template>
   <header>
-    <base-button mode="back">뒤로가기</base-button>
+    <a :href="pageLink">뒤로가기</a>
     <h1>{{ pageTitle }}</h1>
   </header>
 </template>
@@ -11,6 +11,10 @@ export default {
     pageTitle: {
       type: String,
       default: 'stock view',
+    },
+    pageLink: {
+      type: String,
+      default: '/',
     },
   },
 }

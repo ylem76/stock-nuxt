@@ -4,7 +4,10 @@
     <td>{{ date }}</td>
     <td>{{ price }}</td>
     <td>{{ count }}</td>
-    <td><base-button>수정</base-button></td>
+    <td>
+      <base-button @click.native="deleteItem(id)">삭제</base-button>
+      <base-button @click.native="modifyItem(id)">수정</base-button>
+    </td>
   </tr>
 </template>
 
@@ -28,6 +31,7 @@ export default {
       default: '',
     },
   },
+  inject: ['deleteItem', 'modifyItem'],
 }
 </script>
 

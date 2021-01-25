@@ -1,5 +1,13 @@
 <template>
   <section>
+    <base-modal v-if="inputIsInvalid" @modalClose="confirmError">
+      <template #default>
+        <p>빈칸을 다 채워주세요</p>
+      </template>
+      <template #action>
+        <base-button @click.native="confirmError">닫기</base-button>
+      </template>
+    </base-modal>
     <p>
       <span>매매 종류 : {{ stock.buy }}</span>
       <span>거래일: {{ stock.date }}</span>
@@ -34,31 +42,46 @@
   </section>
 </template>
 <script>
+import BaseButton from '../UI/BaseButton.vue'
 export default {
+  components: { BaseButton },
   inject: ['addNewItem'],
   data() {
     return {
+      inputIsInvalid: false,
       stock: {
-        id: null,
+        id: '',
         buy: '',
-        date: null,
-        price: null,
-        count: null,
+        date: '',
+        price: '',
+        count: '',
       },
     }
   },
   methods: {
+    confirmError() {
+      this.inputIsInvalid = false
+    },
     completeClose() {
+      if (
+        this.stock.buy === '' ||
+        this.date === '' ||
+        this.stock.price === '' ||
+        this.stock.count === ''
+      ) {
+        this.inputIsInvalid = true
+        return
+      }
       this.stock.id = new Date().toISOString()
       this.addNewItem(this.stock)
       this.$emit('stock')
       this.stock = {
         // 폼 입력 내용 지우는 방법 찾아보기
-        id: null,
+        id: '',
         buy: '',
-        date: null,
-        price: null,
-        count: null,
+        date: '',
+        price: '',
+        count: '',
       }
       this.close()
     },

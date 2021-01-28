@@ -14,6 +14,10 @@
 <script>
 export default {
   props: {
+    id: {
+      type: String,
+      default: '',
+    },
     buy: {
       type: String,
       default: '',

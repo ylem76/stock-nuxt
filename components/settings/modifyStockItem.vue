@@ -1,6 +1,7 @@
 <template>
   <section>
-    <base-modal v-if="inputIsInvalid" @modalClose="confirmError">
+    test
+    <!-- <base-modal v-if="inputIsInvalid" @modalClose="confirmError">
       <template #default>
         <p>빈칸을 다 채워주세요</p>
       </template>
@@ -38,15 +39,15 @@
       </tbody>
     </table>
     <button @click="completeClose()">저장하기</button>
-    <button @click="close()">취소하기</button>
+    <button @click="close()">취소하기</button> -->
   </section>
 </template>
 <script>
-import BaseButton from '../UI/BaseButton.vue'
+// import BaseButton from '../UI/BaseButton.vue'
 export default {
-  components: { BaseButton },
+  // components: { BaseButton },
   props: {
-    stock: {
+    modifyItemData: {
       type: Object,
       required: true,
     },

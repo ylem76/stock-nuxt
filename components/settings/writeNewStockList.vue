@@ -73,6 +73,7 @@ export default {
         return
       }
       this.stock.id = new Date().toISOString()
+      // this.stock.id = 2
       this.addNewItem(this.stock)
       this.$emit('stock')
       this.stock = {

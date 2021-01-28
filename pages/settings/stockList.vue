@@ -16,6 +16,7 @@
       :message="stockList"
       @close="writeNewList = false"
     ></write-new-stock-list>
+    <modify-stock-item v-if="test"></modify-stock-item>
   </section>
 </template>
 
@@ -24,17 +25,19 @@ export default {
   layout: 'settings',
   data() {
     return {
+      test: false,
+      beModifyStock: {},
       writeNewList: false,
       stockList: [
         {
-          id: 1,
+          id: 'test',
           buy: '매수',
           date: '20.12.05',
           price: '65,500',
           count: '19',
         },
         {
-          id: 2,
+          id: 'index1',
           buy: '매수',
           date: '20.12.25',
           price: '64,500',
@@ -49,6 +52,8 @@ export default {
       addNewItem: this.addNewItem,
       deleteItem: this.removeItem,
       modifyItem: this.modifyItem,
+
+      modifyItemData: this.beModifyStock,
     }
   },
   methods: {
@@ -67,6 +72,17 @@ export default {
         (res) => res.id === stockId
       )
       this.stockList.splice(removeStockIndex, 1)
+    },
+    modifyItem(stockId) {
+      this.test = true
+      const modifyStockIndex = this.stockList.findIndex(
+        (res) => res.id === stockId
+      )
+      this.beModifyStock.id = this.stockList[modifyStockIndex].id
+      this.beModifyStock.buy = this.stockList[modifyStockIndex].buy
+      this.beModifyStock.date = this.stockList[modifyStockIndex].date
+      this.beModifyStock.price = this.stockList[modifyStockIndex].price
+      this.beModifyStock.count = this.stockList[modifyStockIndex].count
     },
   },
 }

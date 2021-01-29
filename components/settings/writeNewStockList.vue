@@ -56,6 +56,7 @@ export default {
         price: '',
         count: '',
       },
+      modifyMode: false,
     }
   },
   methods: {

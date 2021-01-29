@@ -16,7 +16,6 @@
       :message="stockList"
       @close="writeNewList = false"
     ></write-new-stock-list>
-    <modify-stock-item v-if="test"></modify-stock-item>
   </section>
 </template>
 
@@ -25,8 +24,9 @@ export default {
   layout: 'settings',
   data() {
     return {
-      test: false,
-      beModifyStock: {},
+      test: true,
+      modifyMode: false,
+      modifyItemData: {},
       writeNewList: false,
       stockList: [
         {
@@ -53,7 +53,8 @@ export default {
       deleteItem: this.removeItem,
       modifyItem: this.modifyItem,
 
-      modifyItemData: this.beModifyStock,
+      modifyMode: this.modifyMode,
+      modifySave: this.modifySave,
     }
   },
   methods: {
@@ -73,16 +74,12 @@ export default {
       )
       this.stockList.splice(removeStockIndex, 1)
     },
-    modifyItem(stockId) {
-      this.test = true
-      const modifyStockIndex = this.stockList.findIndex(
-        (res) => res.id === stockId
+    modifySave(beModifyItem) {
+      const modifiedIndex = this.stockList.findIndex(
+        (res) => res.id === beModifyItem.id
       )
-      this.beModifyStock.id = this.stockList[modifyStockIndex].id
-      this.beModifyStock.buy = this.stockList[modifyStockIndex].buy
-      this.beModifyStock.date = this.stockList[modifyStockIndex].date
-      this.beModifyStock.price = this.stockList[modifyStockIndex].price
-      this.beModifyStock.count = this.stockList[modifyStockIndex].count
+      this.stockList[modifiedIndex] = beModifyItem
+      this.modifyMode = false
     },
   },
 }

@@ -1,7 +1,32 @@
 <template>
   <section>
     <the-header page-title="매매기록" page-link="/settings"></the-header>
-    <stock-log-list :log-list="stockList"></stock-log-list>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>거래일</th>
+            <th>단가</th>
+            <th>수량</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <stock-log-item
+            v-for="res in stockList"
+            :id="res.id"
+            :key="res.id"
+            :buy="res.buy"
+            :date="res.date"
+            :price="res.price"
+            :count="res.count"
+            @modifyOpen="test"
+            @saved="modifyList"
+          ></stock-log-item>
+        </tbody>
+      </table>
+    </div>
 
     <base-button
       v-show="!writeNewList"
@@ -25,8 +50,7 @@ export default {
   data() {
     return {
       test: true,
-      modifyMode: false,
-      modifyItemData: {},
+      modifyItem: {},
       writeNewList: false,
       stockList: [
         {
@@ -53,7 +77,6 @@ export default {
       deleteItem: this.removeItem,
       modifyItem: this.modifyItem,
 
-      modifyMode: this.modifyMode,
       modifySave: this.modifySave,
     }
   },
@@ -74,12 +97,11 @@ export default {
       )
       this.stockList.splice(removeStockIndex, 1)
     },
-    modifySave(beModifyItem) {
+    modifyList(item) {
       const modifiedIndex = this.stockList.findIndex(
-        (res) => res.id === beModifyItem.id
+        (res) => res.id === item.id
       )
-      this.stockList[modifiedIndex] = beModifyItem
-      this.modifyMode = false
+      this.stockList[modifiedIndex] = item
     },
   },
 }

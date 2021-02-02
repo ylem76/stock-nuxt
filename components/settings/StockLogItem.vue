@@ -6,7 +6,7 @@
     <td v-show="!modifyMode">{{ count }}</td>
     <td v-show="!modifyMode">
       <base-button @click.native="deleteItem(id)">삭제</base-button>
-      <base-button @click.native="getModify()">수정</base-button>
+      <base-button @click.native="modifyMode = true">수정</base-button>
     </td>
 
     <td v-if="modifyMode">
@@ -18,17 +18,17 @@
     </td>
     <td v-if="modifyMode">
       <form action="">
-        <input v-model="beModifyItem.date" type="text" placeholder="20.05.20" />
+        <input v-model="date" type="text" placeholder="20.05.20" />
       </form>
     </td>
     <td v-if="modifyMode">
-      <input v-model="beModifyItem.price" type="text" placeholder="45,900" />
+      <input v-model="price" type="text" placeholder="45,900" />
     </td>
     <td v-if="modifyMode">
-      <input v-model="beModifyItem.count" type="text" placeholder="2" />
+      <input v-model="count" type="text" placeholder="2" />
     </td>
     <td v-if="modifyMode">
-      <base-button @click.native="modifySave(beModifyItem)">저장</base-button>
+      <base-button @click.native="saveModify()">저장</base-button>
       <base-button @click.native="modifyMode = false">취소</base-button>
     </td>
   </tr>
@@ -57,28 +57,20 @@ export default {
       type: String,
       default: '',
     },
-    modifyMode: {
-      type: Boolean,
-      default: false,
-    },
   },
+  emit: ['saved'],
   data() {
     return {
       beModifyItem: {},
+      modifyMode: false,
     }
   },
-  inject: ['deleteItem', 'modifySave'],
+  inject: ['deleteItem'],
 
   methods: {
-    getModify() {
-      this.beModifyItem = {
-        id: this.id,
-        buy: this.buy,
-        date: this.date,
-        price: this.price,
-        count: this.count,
-      }
-      this.modifyMode = true
+    saveModify() {
+      this.modifyMode = false
+      this.$emit('saved', this.beModifyItem)
     },
   },
 }

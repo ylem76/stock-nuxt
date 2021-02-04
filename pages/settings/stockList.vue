@@ -2,6 +2,7 @@
   <section>
     <the-header page-title="매매기록" page-link="/settings"></the-header>
     <div>
+      <p>{{ getList }}</p>
       <table>
         <thead>
           <tr>
@@ -14,7 +15,7 @@
         </thead>
         <tbody>
           <stock-log-item
-            v-for="res in stockList"
+            v-for="res in getList"
             :id="res.id"
             :key="res.id"
             :buy="res.buy"
@@ -22,7 +23,7 @@
             :price="res.price"
             :count="res.count"
             @modifyOpen="test"
-            @saved="modifyList"
+            @saved="modifyItem"
           ></stock-log-item>
         </tbody>
       </table>
@@ -50,58 +51,44 @@ export default {
   data() {
     return {
       test: true,
-      modifyItem: {},
       writeNewList: false,
-      stockList: [
-        {
-          id: 'test',
-          buy: '매수',
-          date: '20.12.05',
-          price: '65,500',
-          count: '19',
-        },
-        {
-          id: 'index1',
-          buy: '매수',
-          date: '20.12.25',
-          price: '64,500',
-          count: '10',
-        },
-      ],
     }
   },
   provide() {
     return {
-      stockList: this.stockList,
+      // stockList: this.stockList,
       addNewItem: this.addNewItem,
-      deleteItem: this.removeItem,
-      modifyItem: this.modifyItem,
-
-      modifySave: this.modifySave,
+      removeItem: this.removeItem,
+      // modifyItem: this.modifyItem,
+      // modifySave: this.modifySave,
     }
+  },
+  computed: {
+    getList() {
+      return this.$store.getters.getStockList
+    },
   },
   methods: {
     addNewItem(enteredObj) {
-      const newItem = {
+      this.$store.commit('addItem', {
         id: enteredObj.id,
         buy: enteredObj.buy,
         date: enteredObj.date,
         price: enteredObj.price,
         count: enteredObj.count,
-      }
-      this.stockList.unshift(newItem)
+      })
     },
     removeItem(stockId) {
-      const removeStockIndex = this.stockList.findIndex(
-        (res) => res.id === stockId
-      )
-      this.stockList.splice(removeStockIndex, 1)
+      this.$store.commit('removeItem', stockId)
     },
-    modifyList(item) {
-      const modifiedIndex = this.stockList.findIndex(
-        (res) => res.id === item.id
-      )
-      this.stockList[modifiedIndex] = item
+    modifyItem(modifiedItem) {
+      this.$store.commit('modifyItem', {
+        id: modifiedItem.id,
+        buy: modifiedItem.buy,
+        date: modifiedItem.date,
+        price: modifiedItem.price,
+        count: modifiedItem.count,
+      })
     },
   },
 }

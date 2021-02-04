@@ -5,7 +5,7 @@
     <td v-show="!modifyMode">{{ price }}</td>
     <td v-show="!modifyMode">{{ count }}</td>
     <td v-show="!modifyMode">
-      <base-button @click.native="deleteItem(id)">삭제</base-button>
+      <base-button @click.native="removeItem(id)">삭제</base-button>
       <base-button @click.native="modifyMode = true">수정</base-button>
     </td>
 
@@ -65,7 +65,7 @@ export default {
       modifyMode: false,
     }
   },
-  inject: ['deleteItem'],
+  inject: ['removeItem'],
 
   methods: {
     saveModify() {

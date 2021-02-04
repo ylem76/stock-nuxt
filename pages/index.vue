@@ -53,5 +53,27 @@
 </template>
 
 <script>
-export default {}
+export default {
+  mounted() {
+    // fetch('http://asp1.krx.co.kr/servlet/krx.asp.XMLSise?code=095610')
+    //   .then((response) => {
+    //     if (response.ok) {
+    //       console.log(response)
+    //     }
+    //     throw new Error('nonono')
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
+    // $.ajax({
+    //   url: 'http://asp1.krx.co.kr/servlet/krx.asp.XMLSise?code=095610',
+    //   dataType: 'xml',
+    //   type: 'GET',
+    //   contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+    //   success: function (res) {
+    //     console.log(res.responseText)
+    //   },
+    // })
+  },
+}
 </script>

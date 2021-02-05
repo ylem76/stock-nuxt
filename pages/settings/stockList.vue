@@ -23,7 +23,6 @@
             :price="res.price"
             :count="res.count"
             @modifyOpen="test"
-            @saved="modifyItem"
           ></stock-log-item>
         </tbody>
       </table>
@@ -39,7 +38,6 @@
     </base-button>
     <write-new-stock-list
       v-show="writeNewList"
-      :message="stockList"
       @close="writeNewList = false"
     ></write-new-stock-list>
   </section>
@@ -56,11 +54,7 @@ export default {
   },
   provide() {
     return {
-      // stockList: this.stockList,
-      addNewItem: this.addNewItem,
       removeItem: this.removeItem,
-      // modifyItem: this.modifyItem,
-      // modifySave: this.modifySave,
     }
   },
   computed: {
@@ -68,29 +62,7 @@ export default {
       return this.$store.getters.getStockList
     },
   },
-  methods: {
-    addNewItem(enteredObj) {
-      this.$store.commit('addItem', {
-        id: enteredObj.id,
-        buy: enteredObj.buy,
-        date: enteredObj.date,
-        price: enteredObj.price,
-        count: enteredObj.count,
-      })
-    },
-    removeItem(stockId) {
-      this.$store.commit('removeItem', stockId)
-    },
-    modifyItem(modifiedItem) {
-      this.$store.commit('modifyItem', {
-        id: modifiedItem.id,
-        buy: modifiedItem.buy,
-        date: modifiedItem.date,
-        price: modifiedItem.price,
-        count: modifiedItem.count,
-      })
-    },
-  },
+  methods: {},
 }
 </script>
 

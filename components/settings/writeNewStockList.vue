@@ -60,6 +60,15 @@ export default {
     }
   },
   methods: {
+    addNewItem(enteredObj) {
+      this.$store.commit('addItem', {
+        id: enteredObj.id,
+        buy: enteredObj.buy,
+        date: enteredObj.date,
+        price: enteredObj.price,
+        count: enteredObj.count,
+      })
+    },
     confirmError() {
       this.inputIsInvalid = false
     },
@@ -74,11 +83,9 @@ export default {
         return
       }
       this.stock.id = new Date().toISOString()
-      // this.stock.id = 2
       this.addNewItem(this.stock)
       this.$emit('stock')
       this.stock = {
-        // 폼 입력 내용 지우는 방법 찾아보기
         id: '',
         buy: '',
         date: '',
